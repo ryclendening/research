@@ -16,6 +16,7 @@ import csv
 import datetime
 import numpy as np
 from dataImporting import dataTools
+#Big picture, can turn redVox to Wav file (used to convert to noise wavs)
 
 rows = []
 startTimes = []
@@ -92,13 +93,13 @@ for entry in rows:
     runName.append((scene + 'R' + run + 'P' + passNum).strip())
 
 timeStamps = np.stack((startTimes, endTimes), axis=1)
-# for r in range(len(timeStamps)):
-#     start = timeStamps[r][0]
-#     end = timeStamps[r][1]
-#     name = runName[r]
-#     testName = "C:\\Users\\rclendening\\researchData\\cellNoise\\" + name
-#     searchDir(testName, start, end)
+for r in range(len(timeStamps)):
+    start = timeStamps[r][0]
+    end = timeStamps[r][1]
+    name = runName[r]
+    testName = "C:\\Users\\rclendening\\researchData\\cellNoise\\" + name
+    searchDir(testName, start, end)
 
 # searchDir("C:\\Users\\rclendening\\EscapeTest_Data\\cellNoise")
 
-convertToWav("C:\\Users\\rclendening\\researchData\\test123\\", timeStamps[0][0], timeStamps[0][1], "1", "2", "3")
+#convertToWav("C:\\Users\\rclendening\\researchData\\test123\\", timeStamps[0][0], timeStamps[0][1], "1", "2", "3")

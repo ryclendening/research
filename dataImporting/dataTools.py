@@ -3,13 +3,14 @@ import datetime
 import px4tools
 import pandas as pd
 import pylab as pl
+from matplotlib import pyplot as plt
 from scipy.signal import butter, lfilter, freqz
 from redvox.common.data_window import DataWindow, DataWindowConfig
 
 
 def importTruthData(file):
     data = pd.read_csv(file)
-    return data;
+    return data
 
 
 def printISOformatAll(data):
@@ -111,3 +112,15 @@ def import_redVoxData(file):
         structured_layout=False)  # Note: needs to be set to false or else returns error
     datawindow = DataWindow(config=config)
     return datawindow
+
+
+def freqShift(PSDData, label):
+    alpha = 0.8
+    freqShiftedData = []
+    freqShiftedLabels = []
+    while alpha <= 1.2:
+        newDat = PSDData * alpha
+        freqShiftedData.append(newDat)
+        freqShiftedLabels.append(label)
+        alpha = alpha + 0.02
+        plt.plot(newDat)
