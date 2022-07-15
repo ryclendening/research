@@ -1,8 +1,5 @@
 from matplotlib import pyplot as plt
-from scipy.io import wavfile
 from scipy.fft import rfft, rfftfreq
-from dataImporting import dataTools
-from pydub import AudioSegment
 import numpy as np
 import os
 import soundfile
