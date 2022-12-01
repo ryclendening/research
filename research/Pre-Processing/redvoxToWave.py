@@ -44,8 +44,8 @@ def convertToWav(path, start, end, scenario, runNum, cellName):
     timeStamps = audioSensor.data_timestamps()
     dataSamples, dataTime = dataTools.parseRedVox(samples, timeStamps, start, end)
     if dataSamples.size:
-        normalized_tone = np.int16((dataSamples / dataSamples.max()) * 32767)
-        write("C:\\Users\\rclendening\\researchData\\" + runNum + cellName + ".wav",
+        normalized_tone = np.int16((dataSamples / np.max(np.abs(dataSamples)) * 32767))
+        write("C:\\Users\\rclendening\\researchData\\EscapeCell_training_YT_v2\\NOISE\\" + runNum + cellName + ".wav",
               8000,
               normalized_tone)
     else:
@@ -85,7 +85,7 @@ for r in range(len(timeStamps)):
     start = timeStamps[r][0]
     end = timeStamps[r][1]
     name = runName[r]
-    testName = "C:\\Users\\rclendening\\researchData\\cellNoise\\" + name
+    testName = "C:\\Users\\rclendening\\researchData\\cellNoise_v2\\" + name
     searchDir(testName, start, end)
 
 # searchDir("C:\\Users\\rclendening\\EscapeTest_Data\\cellNoise")

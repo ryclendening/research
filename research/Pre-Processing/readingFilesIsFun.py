@@ -49,7 +49,7 @@ def parseEvent(path, start, end, name):
             phone = phoneName[8]
             if not phone.startswith('Phone'):
                 phone = phoneName[7]
-            newDir = ("C:\\Users\\rclendening\\researchData\\cellNoise\\" + name + "\\" + phone).strip()
+            newDir = ("C:\\Users\\rclendening\\researchData\\cellNoise_v2\\" + name + "\\" + phone).strip()
             if not (os.path.exists(newDir) and os.path.isdir(path)):
                 os.mkdir(newDir)
                 j = i
@@ -102,6 +102,6 @@ for r in range(len(timeStamps)):
     end = timeStamps[r][1]
     name = runName[r]
     # newDir = ("/media/sf_VM_Folder/EscapeTest_Data/" + name).strip()
-    os.mkdir("C:\\Users\\rclendening\\researchData\\cellNoise\\"+name)
+    os.mkdir("C:\\Users\\rclendening\\researchData\\cellNoise_v2\\"+name)
     # searchDir("C:\\Users\\rclendening\\researchData\\ESCAPE_August_fresh", start, end, name, newDir)
     searchDir("C:\\Users\\rclendening\\researchData\\ESCAPE_August_fresh", start, end, name)
