@@ -160,8 +160,8 @@ def PSD_log(path, lenFrame, frameInt):
         chunk = data[cnt:cnt + lenChunk]
         f_dum, PSD = signal.welch(chunk, fs, window=win,
                                   nperseg=lenFrame, noverlap=frameInt, nfft=lenFrame, average='mean')
-    logPSD.append(np.log(PSD + np.finfo(float).eps))
-    cnt = cnt + lenChunk
+        logPSD.append(np.log(PSD + np.finfo(float).eps))
+        cnt = cnt + lenChunk
     return logPSD
 
 
