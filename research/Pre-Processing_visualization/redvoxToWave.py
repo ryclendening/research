@@ -4,8 +4,8 @@ import csv
 import datetime
 import numpy as np
 from research.dataImporting import dataTools
-#Big picture, can turn redVox to Wav file (used to convert to noise wavs)
-
+#Big picture, can turn redVox to Wav file (used to convert to wavs)
+import soundfile as sf
 rows = []
 startTimes = []
 endTimes = []
@@ -25,16 +25,8 @@ def searchDir(rootdir, start, end):
             break
     if isinstance(it, str):
         splitPath = it.split('\\')
-        convertToWav(it, start, end, splitPath[4], splitPath[5], splitPath[6])
+        convertToWav(it, start, end, splitPath[6], splitPath[7], splitPath[8])
 
-
-# window = dataTools.import_redVoxData("C:\\Users\\rclendening\\EscapeTest_Data\\A2\\A2R2P3\\Phone_1-1\\")
-# station = window.first_station()
-# samples = station.audio_sensor().get_microphone_data()
-# timeStamps = station.audio_sensor().data_timestamps()
-# dataSamples, dataTime = dataTools.parseRedVox(samples, timeStamps, 1629817320, 1629817375)
-#
-# print("")
 
 def convertToWav(path, start, end, scenario, runNum, cellName):
     window = dataTools.import_redVoxData(path)
@@ -44,16 +36,16 @@ def convertToWav(path, start, end, scenario, runNum, cellName):
     timeStamps = audioSensor.data_timestamps()
     dataSamples, dataTime = dataTools.parseRedVox(samples, timeStamps, start, end)
     if dataSamples.size:
-        normalized_tone = np.int16((dataSamples / np.max(np.abs(dataSamples)) * 32767))
-        write("C:\\Users\\rclendening\\researchData\\EscapeCell_training_YT_v2\\NOISE\\" + runNum + cellName + ".wav",
-              8000,
-              normalized_tone)
+        sf.write("C:\\Users\\rclendening\\researchData\\EscapeCell_DataWav_unplayable\\"+scenario+"\\"+runNum+"\\"+cellName +".wav",dataSamples,8000,'PCM_24')
+        # normalized_tone = np.int16((dataSamples / np.max(np.abs(dataSamples)) * 32767))
+        # write("C:\\Users\\rclendening\\researchData\\EscapeCell_DataWav_24bit\\"+scenario+"\\"+runNum+"\\"+cellName + ".wav",
+        #       8000,
+        #       normalized_tone)
     else:
         print("Skipped" + scenario + runNum, cellName)
 
-
-# file = open("C:\\Users\\rclendening\\bash_scripting\\flightTimeStamps_New1redo.csv")
-file = open("C:\\Users\\rclendening\\researchData\\researchCSVs_Scripts_etc\\redVoxNoiseData.csv")
+parent_directory=os.path.abspath(os.path.join(os.getcwd(), ".."))
+file = open(parent_directory+"\\flightTimeStamps_New.csv")
 csvreader = csv.reader(file)
 
 for row in csvreader:
@@ -85,7 +77,7 @@ for r in range(len(timeStamps)):
     start = timeStamps[r][0]
     end = timeStamps[r][1]
     name = runName[r]
-    testName = "C:\\Users\\rclendening\\researchData\\cellNoise_v2\\" + name
+    testName = "C:\\Users\\rclendening\\researchData\\Unused_Datasets\\EscapeCell_Data\\"+name[0:2]+"\\"+name
     searchDir(testName, start, end)
 
 # searchDir("C:\\Users\\rclendening\\EscapeTest_Data\\cellNoise")
