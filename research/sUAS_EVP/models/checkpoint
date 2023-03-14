@@ -1,0 +1,2 @@
+model_checkpoint_path: "ANN_LT80_wo_A1_24bit"
+all_model_checkpoint_paths: "ANN_LT80_wo_A1_24bit"
